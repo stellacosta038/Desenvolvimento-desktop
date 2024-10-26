@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+    // Classe Contato com nome e telefone
+class Contato {
+    constructor(nome, telefone) {
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
+    // Método para validar o telefone (padrão: (XX) XXXXX-XXXX)
+    validarTelefone() {
+        const telefoneRegex = /^\d{9}$/; // Regex que valida formato de telefone
+        return this.telefone('telefoneRegex'); // Verifica se o telefone corresponde ao regex
+    }
+}
+
+// Exemplo de uso da classe Contato
+const contato = new Contato("João", "(11) 98765-4321");
+const contato = new Contato("Stella", "(31) 95506-2014");
+const contato = new Contato("Láyza", "(33) 98642-9340");
+
+
+if (contato.validarTelefone()) {
+    console.log("Número de telefone inválido!");
+} else {
+    console.log("Número de telefone válido.");
+}
+    </script>
+</body>
+</html>
