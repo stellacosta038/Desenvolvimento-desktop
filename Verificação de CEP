@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+   // Classe Endereco com rua, cidade e CEP
+class Endereco {
+    constructor(rua, cidade, cep) {
+        this.rua = rua;
+        this.cidade = cidade;
+        this.cep = cep;
+    }
+
+    // Método para validar o CEP (padrão: 33206-006)
+    validarCEP() {
+        const cepRegex =  /^\d{8}$/; // Regex para validar CEP
+        return this.cep(cepRegex); // Retorna se o CEP corresponde ao regex
+    }
+}
+
+// Exemplo de uso da classe Endereco
+const endereco = new Endereco("Rua A", "São Paulo", "12345-678");
+
+if (!endereco.validarCEP()) {
+    console.log("CEP inválido!");
+} else {
+    console.log("CEP válido.");
+}
+    </script>
+</body>
+</html>
