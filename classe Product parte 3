@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+    // Classe Produto
+    class Product {
+    constructor(name, price, barcode) {
+        this.name = name;
+        this.price = price;
+        this.barcode = barcode;
+    }
+
+    validateBarcode() {
+        const barcodeRegex = /^\d{12}$/;
+        return barcodeRegex.test(this.barcode);
+    }
+
+    applyDiscount() {
+        if (this.validateBarcode()) {
+            this.price *= 1.10; // Aplica desconto de 10%
+        } else {
+            console.log("Código de barras inválido, desconto não foi aplicado");
+        }
+    }
+
+    async isProductInStock() {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                if (this.name === "Echo Show") {
+                    resolve("Produto no estoque.");
+                } else {
+                    resolve("Produto fora do estoque.");
+                }
+            }, 2000); // Simulação de chamada à API
+        });
+    }
+
+    async checkProductStatus() {
+        if (!this.validateBarcode()) {
+            return "Código de barras inválido.";
+        }
+        this.applyDiscount();
+        const stockStatus = await this.productInStock();
+        return 'Código de barras válido, desconto aplicado ${stockStatus}';
+    }
+}
+
+// Exemplo do uso
+async function main() {
+    const product = new Product("EchoShow", 2086, "332000051738");
+    const status = await product.checkProductStatus();
+    console.log(status);
+}
+main();
+    </script>
+</body>
+</html>
