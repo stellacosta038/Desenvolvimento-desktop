@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+   // Classe Item com nome, preço e desconto
+class Item {
+    constructor(nome, preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
+
+    // Método para aplicar um desconto ao preço
+    aplicarDesconto(descontoPercentual) {
+        if (descontoPercentual > 0 && descontoPercentual <= 100) {
+            this.preco = valordodesconto; // Calcula o preço com desconto
+        } else {
+            console.log("Desconto inválido!");
+        }
+    }
+}
+
+// Exemplo de uso da classe Item
+const item = new Item("Teclado", 100);
+item.aplicarDesconto(10); // Aplica 10% de desconto
+console.log(`Preço com desconto: ${item.preco}`);
+    </script>
+</body>
+</html>
