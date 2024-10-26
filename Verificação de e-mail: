@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+    // Classe Usuario com nome e email
+class Usuario {
+    constructor(nome, email) {
+        this.nome = nome;
+        this.email = email;
+    }
+
+    // Método para validar o e-mail
+    validarEmail() {
+        const emailRegex = /^\d{@}$/; // Regex que valida e-mail
+        return this.email(emailRegex); // Retorna se o e-mail é válido
+    }
+}
+
+// Exemplo de uso da classe Usuario
+const usuario = new Usuario("Maria", "maria@email.com");
+const usuario = new Usuario("Junior", "junior@email.com");
+const usuario = new Usuario("Izabell", "izabell@email.com");
+
+
+if (!usuario.validarEmail()) {
+    console.log("E-mail inválido!");
+} else {
+    console.log("E-mail válido.");
+}
+    </script>
+</body>
+</html>
