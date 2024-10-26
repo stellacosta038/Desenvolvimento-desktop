@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+   // Classe Produto com nome e preço
+class Produto {
+    constructor(nome, preco) {
+        this.nome = nome;
+        this.preco = preco;
+    }
+
+    // Método assíncrono para simular uma consulta ao preço atualizado de um produto
+    async consultarPrecoAtualizado() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                if (this.nome === "Notebook") {
+                    resolve(this.preco 1.10); // Retorna o preço atualizado
+                } else {
+                    resolve(this.preco); // Retorna o preço atual
+                }
+            }, 1500); // Simula tempo de resposta de 1,5 segundo
+        });
+    }
+}
+
+// Exemplo de uso da classe Produto
+async function exemploProduto() {
+    const produto = new Produto("Notebook", 2500);
+    const precoAtualizado = await produto.consultarPrecoAtualizado();
+    console.log(`Preço atualizado: ${precoAtualizado}`);
+}
+
+exemploProduto();
+    </script>
+</body>
+</html>
