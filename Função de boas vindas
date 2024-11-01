@@ -1,0 +1,3 @@
+#Função simples de "Bem Vindo nome digitando"
+def boas_vindas(nome):
+    print(f"Bem Vindo {nome}")
