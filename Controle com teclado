@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang=""pt-BR"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Controle com Teclado em Tabuleiro 6x6</title>
+    <style>
+        #tabuleiro {
+            display: grid;
+            grid-template-columns: repeat(6, 50px);
+            grid-template-rows: repeat(6, 50px);
+            gap: 5px;
+        }
+        .celula {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            text-align: center;
+            line-height: 50px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Controle o Caractere * com as Setas</h1>
+    <div id=""tabuleiro""></div>
+    <div id=""mensagem""></div>
+    <button id=""reiniciar"" style=""display:none;"">Reiniciar Jogo</button>
+
+    <script>
+        const tabuleiro = document.getElementById(""tabuleiro"");
+        const mensagem = document.getElementById(""mensagem"");
+        const reiniciarBtn = document.getElementById(""reiniciar"");
+        const tamanhoTabuleiro = 6;
+        let posicaoJogador;
+        let metas = [];
+        let perigos = [];
+
+        function inicializarJogo() {
+            posicaoJogador = { x: 0, y: 0 };
+            metas = gerarPosicoes(tamanhoTabuleiro, 3);
+            perigos = gerarPosicoes(tamanhoTabuleiro, 2);
+            mensagem.textContent = """";
+            reiniciarBtn.style.display = ""none"";
+            criarTabuleiro();
+            atualizarTabuleiro();
+            document.addEventListener(""keydown"", moverJogador);
+        }
+
+        function gerarPosicoes(tamanho, quantidade) {
+            const posicoes = [];
+            while (posicoes.length < quantidade) {
+                const novaPosicao = {
+                    x: Math.floor(Math.random() * tamanho),
+                    y: Math.floor(Math.random() * tamanho)
+                };
+                if (!posicoes.some(p => p.x === novaPosicao.x && p.y === novaPosicao.y)) {
+                    posicoes.push(novaPosicao);
+                }
+            }
+            return posicoes;
+        }
+
+        function criarTabuleiro() {
+            tabuleiro.innerHTML = """";
+            for (let i = 0; i < tamanhoTabuleiro; i++) {
+                for (let j = 0; j < tamanhoTabuleiro; j++) {
+                    const celula = document.createElement(""div"");
+                    celula.classList.add(""celula"");
+                    tabuleiro.appendChild(celula);
+                }
+            }
+        }
+
+        function atualizarTabuleiro() {
+            const celulas = document.querySelectorAll("".celula"");
+            celulas.forEach(celula => celula.textContent = """");
+
+            const jogador = celulas[posicaoJogador.x * tamanhoTabuleiro + posicaoJogador.y];
+            jogador.textContent = ""*"";
+
+            verificarCondicoes();
+        }
+
+        function moverJogador(event) {
+            switch (event.key) {
+                case ""ArrowUp"":
+                    if (posicaoJogador.x > 0) posicaoJogador.x--;
+                    break;
+                case ""ArrowDown"":
+                    if (posicaoJogador.x < tamanhoTabuleiro - 1) posicaoJogador.x++;
+                    break;
+                case ""ArrowLeft"":
+                    if (posicaoJogador.y > 0) posicaoJogador.y--;
+                    break;
+                case ""ArrowRight"":
+                    if (posicaoJogador.y < tamanhoTabuleiro - 1) posicaoJogador.y++;
+                    break;
+                default:
+                    return;
+            }
+            atualizarTabuleiro();
+        }
+
+        function verificarCondicoes() {
+            if (metas.some(meta => posicaoJogador.x === meta.x && posicaoJogador.y === meta.y)) {
+                mensagem.textContent = ""Você venceu!"";
+                finalizarJogo();
+            } else if (perigos.some(perigo => posicaoJogador.x === perigo.x && posicaoJogador.y === perigo.y)) {
+                mensagem.textContent = ""Você perdeu!"";
+                finalizarJogo();
+            }
+        }
+
+        function finalizarJogo() {
+            document.removeEventListener(""keydown"", moverJogador);
+            reiniciarBtn.style.display = ""block"";
+        }
+
+        reiniciarBtn.addEventListener(""click"", inicializarJogo);
+        inicializarJogo();
+    </script>
+</body>
+</html>
