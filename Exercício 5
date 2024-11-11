@@ -1,0 +1,55 @@
+const fs = require('fs');
+const path = require('path');
+
+function criarBancoDeTalentos() {
+    // Criar a pasta "Currículos" se não existir
+    const pastaCurriculos = 'Currículos';
+    fs.mkdir(pastaCurriculos, { recursive: true }, (err) => {
+        if (err) {
+            console.error('Erro ao criar a pasta Currículos:', err);
+            return;
+        }
+
+        // Loop para coletar dados de múltiplos candidatos
+        while (true) {
+            const nome = prompt('Digite seu nome:');
+            const idade = parseInt(prompt('Digite sua idade:'));
+            const telefone = prompt('Digite seu telefone:');
+            const endereco = prompt('Digite seu endereço:');
+            const profissao = prompt('Digite sua profissão:');
+
+            // Validar dados (pode ser aprimorado com expressões regulares)
+            if (!nome || !idade || !telefone || !endereco || !profissao) {
+                console.log('Por favor, preencha todos os campos.');
+                continue;
+            }
+
+            // Criar a pasta da profissão se não existir
+            const pastaProfissao = path.join(pastaCurriculos, profissao);
+            fs.mkdir(pastaProfissao, { recursive: true }, (err) => {
+                if (err) {
+                    console.error('Erro ao criar a pasta da profissão:', err);
+                }
+            });
+
+            // Criar o arquivo do candidato
+            const caminhoArquivo = path.join(pastaProfissao, `${nome}.txt`);
+            const dados = `Nome: ${nome}\nIdade: ${idade}\nTelefone: ${telefone}\nEndereço: ${endereco}\nProfissão: ${profissão}`;
+            fs.writeFile(caminhoArquivo, dados, (err) => {
+                if (err) {
+                    console.error('Erro ao criar o arquivo do candidato:', err);
+                } else {
+                    console.log('Dados do candidato salvos com sucesso!');
+                }
+            });
+
+            // Perguntar se deseja continuar
+            const continuar = prompt('Deseja cadastrar outro candidato? (S/N):');
+            if (continuar.toUpperCase() !== 'S') {
+                break;
+            }
+        }
+    });
+}
+
+criarBancoDeTalentos();
